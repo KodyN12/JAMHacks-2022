@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import {Audio, Video} from 'expo-av';
 
 import {API_KEY} from './config.json';
+import {client_id, client_secret} from './client_secret.json';
 
 // import all the components we are going to use
 import {
@@ -22,14 +23,46 @@ import {
 } from 'react-native';
  
 const speech = require('@google-cloud/speech');
- 
-const App = () => {
+
+// const {google} = require('googleapis');
+const {google} = require('https://speech.googleapis.com/v1/speech:recognize?key=' + API_KEY);
+
+/**
+ * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
+ * from the client_secret.json file. To get these credentials for your application, visit
+ * https://console.cloud.google.com/apis/credentials.
+ */
+const oauth2Client = new google.auth.OAuth2(
+  client_id,
+  client_secret,
+  'http://localhost:19006'
+);
+
+// Access scopes for read-only Drive activity.
+const scopes = [
+  'https://www.googleapis.com/auth/drive.metadata.readonly'
+];
+
+// Generate a url that asks permissions for the Drive activity scope
+const authorizationUrl = oauth2Client.generateAuthUrl({
+  // 'online' (default) or 'offline' (gets refresh_token)
+  access_type: 'offline',
+  /** Pass in the scopes array defined above.
+    * Alternatively, if only one scope is needed, you can pass a scope URL as a string */
+  scope: scopes,
+  // Enable incremental authorization. Recommended as a best practice.
+  include_granted_scopes: true
+});
+
+const App  = () => {
   const [recording, setRecording] = useState();
   const [isRecording, setIsRecording] = useState();
 
-  const client = new speech.SpeechClient()
 
   async function quickstart(uri) {
+    authorizationUrl();
+    const client = new speech.SpeechClient();
+    await client.initialize();
 
     // The audio file's encoding, sample rate in hertz, and BCP-47 language code
     const audio = {
@@ -46,7 +79,7 @@ const App = () => {
     };
 
     // Detects speech in the audio file
-    const [response] = await client.recognize(request);
+    const [response] = client.recognize(request);
     const transcription = response.results
       .map(result => result.alternatives[0].transcript)
       .join('\n');
@@ -104,6 +137,7 @@ const App = () => {
 
       await player.loadAsync({ uri: uri });
       await player.playAsync();
+      quickstart(uri);
     } else {
       setIsRecording(true);
       console.log('Starting recording..');
@@ -112,32 +146,6 @@ const App = () => {
       );
       setRecording(recording);
     }
-  }
-
-  async function startRecording() {
-    if (isRecording) return;
-    isRecording = true;
-    console.log('Starting recording..');
-    const { recording } = await Audio.Recording.createAsync(
-      Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-    );
-    setRecording(recording);
-  }
-
-  async function stopRecording() {
-    if (!isRecording) return;
-    isRecording = false;
-    const player = new Audio.Sound();
-
-    setRecording(undefined);
-    await recording.stopAndUnloadAsync();
-    const uri = recording.getURI();
-    console.log('Recording stopped and stored at', uri);
-
-    await player.loadAsync({ uri: uri });
-    await player.playAsync();
-    // getTranscription(uri);
-    quickstart(uri);
   }
 
   return (

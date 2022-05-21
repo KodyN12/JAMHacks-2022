@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 config.json
 service_account.json
+client_secret.json
 
 # macOS
 .DS_Store
