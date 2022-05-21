@@ -4,8 +4,10 @@
 // import React in our code
 import React, {useState, useEffect} from 'react';
 
-import { Audio, Video } from 'expo-av';
- 
+import {Audio, Video} from 'expo-av';
+
+import {API_KEY} from './config.json';
+
 // import all the components we are going to use
 import {
   SafeAreaView,
@@ -18,11 +20,63 @@ import {
   Button,
 } from 'react-native';
  
-// import Voice
-import Voice from 'react-native-voice';
+const speech = require('@google-cloud/speech');
  
 const App = () => {
   const [recording, setRecording] = useState();
+
+  const client = new speech.SpeechClient()
+
+  async function quickstart(uri) {
+
+    // The audio file's encoding, sample rate in hertz, and BCP-47 language code
+    const audio = {
+      uri: uri,
+    };
+    const config = {
+      encoding: 'LINEAR16',
+      sampleRateHertz: 16000,
+      languageCode: 'en-US',
+    };
+    const request = {
+      audio: audio,
+      config: config,
+    };
+
+    // Detects speech in the audio file
+    const [response] = await client.recognize(request);
+    const transcription = response.results
+      .map(result => result.alternatives[0].transcript)
+      .join('\n');
+    console.log(`Transcription: ${transcription}`);
+  }
+
+  async function getTranscription (uri){
+    try {
+      const formData = new FormData();
+      // formData.append('file', {
+      //   uri,
+      //   type: 'audio/x-wav',
+      //   // could be anything 
+      //   name: 'speech2text'
+      // });
+      // const response = await fetch('https://speech.googleapis.com/v1/speech:recognize?key=' + API_KEY, {
+      //   method: 'POST',
+      //   body: formData
+      // });
+
+      const response = await fetch('https://speech.googleapis.com/v1/speech:recognize?key=' + API_KEY, {
+        method: 'POST',
+        body: {uri}
+      });
+
+      const data = await response.json();
+      console.log(data);
+      this.setState({ query: data.transcript });
+    } catch(error) {
+      console.log('There was an error', error);
+    }
+  }
  
   useEffect(async() => {
     //Setting callbacks for the process status
@@ -33,10 +87,7 @@ const App = () => {
       playsInSilentModeIOS: true,
     }); 
  
-    return () => {
-      //destroy the process after switching the screen
-      Voice.destroy().then(Voice.removeAllListeners);
-    };
+    return () => {};
   }, []);
 
   async function startRecording(){
@@ -57,6 +108,8 @@ const App = () => {
 
     await player.loadAsync({uri: uri});
     await player.playAsync();
+    // getTranscription(uri);
+    quickstart(uri);
   }
  
   return (
