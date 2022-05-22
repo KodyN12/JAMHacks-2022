@@ -12,25 +12,35 @@ import {
   Button,
 } from "react-native";
 
+// const [rectColor, setRectColor] = useState();
+
 const Folder = (props) => {
+  // setRectColor(props.backgroundColor);
   return (
-    <View style={styles.rectangle}>
-      <Text style={{ fontSize: 25 }}>
-        <b>Folder</b>
-      </Text>
+    <View
+      style={{
+        borderRadius: 20,
+        width: "150px",
+        height: "200px",
+        backgroundColor: props.backgroundColor,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ fontSize: 25, color: props.color }}>{props.text}</Text>
     </View>
   );
 };
 
 export default Folder;
 
-const styles = StyleSheet.create({
-  rectangle: {
-    borderRadius: 20,
-    width: "150px",
-    height: "200px",
-    backgroundColor: "#EAE172",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   rectangle: {
+//     borderRadius: 20,
+//     width: "150px",
+//     height: "200px",
+//     backgroundColor: rectColor,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+// });
