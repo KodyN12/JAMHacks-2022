@@ -21,14 +21,8 @@ import {
   TouchableHighlight,
   ScrollView,
   Button,
-  Platform,
-} from 'react-native';
+} from "react-native";
 import Header from "./components/Header";
-
-
-const { Storage } = require('@google-cloud/storage');
-const storage = new Storage();
-
 
 // const Stack = createNativeStackNavigator();
 
@@ -46,22 +40,13 @@ const App = () => {
       playsInSilentModeIOS: true,
     });
 
-    await storage.createBucket("audiodump");
-    
-    fetch("http://localhost:3000/")
-      .then(res => res.json())
-      .then(data => console.log(data))
+    // fetch("http://localhost:3000/")
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
     // await fetch("http://localhost:3000/", options).then(data => console.log(data))
 
-
-    return () => { };
+    return () => {};
   }, []);
-
-  // async function createBucket() {
-  //   // Creates the new bucket
-  //   console.log(`Bucket created.`);
-  //   await storage.createBucket("audiodump");
-  // }
 
   async function manageRecording() {
     if (isRecording) {
@@ -73,18 +58,14 @@ const App = () => {
       const uri = recording.getURI();
       console.log("Recording stopped and stored at", uri);
 
-      await player.loadAsync({ uri: uri }, {}, true);
+      await player.loadAsync({ uri: uri });
       await player.playAsync();
 
-      // uploadFile(recording);
-
-      fetch("http://localhost:3000/", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: `$gs://audiodump/audioToRec` })
-      })
-        .then(res => res.text())
-
+      // fetch("http://localhost:3000/", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ uri: uri }),
+      // }).then((res) => res.text());
     } else {
       setIsRecording(true);
       console.log("Starting recording..");
@@ -95,13 +76,13 @@ const App = () => {
     }
   }
 
-  async function uploadFile(filePath) {
-    await storage.bucket("audiodump").upload(filePath, {
-      destination: "audioToRec",
-    });
+  let content;
 
-    console.log(`${filePath} uploaded to audiodump`);
-  }
+  // if (page === "Home") {
+  //   content = <Button></Button>;
+  // } else if (page === "Thoughts") {
+  //   content = <Thoughts></Thoughts>;
+  // }
 
   return (
     // <NavigationContainer>
