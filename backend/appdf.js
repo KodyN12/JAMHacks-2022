@@ -25,6 +25,13 @@ const speechToText = new SpeechToTextV1({
   serviceUrl: 'https://api.us-east.speech-to-text.watson.cloud.ibm.com',
 });
 
+let newfolder = false;
+let newfolderName = "";
+let className = "";
+let maxCount = 0;
+let maxLabel = 0;
+let doneRec = false;
+
 async function quickstart() {
   // The path to the remote LINEAR16 file
 
@@ -34,8 +41,13 @@ async function quickstart() {
     languageCode: 'en-US',
   };
 
+  // recognize("middle_sentence.mp3")
+
+}
+
+async function recognize(file_name) {
   const recognizeParams = {
-    audio: fs.createReadStream('middle_sentence.mp3'),
+    audio: fs.createReadStream(file_name),
     contentType: 'audio/mp3',
     wordAlternativesThreshold: 0.9,
   };
@@ -43,6 +55,7 @@ async function quickstart() {
   speechToText.recognize(recognizeParams).then(og => {
     // console.log(JSON.stringify(og, null, 2));
     res = og["result"];
+
     // console.log(JSON.stringify(res, null, 2));
 
     sentence = res["results"][0]["alternatives"][0]["transcript"];
@@ -51,37 +64,116 @@ async function quickstart() {
     // console.log("SENTENCE: " + sentence);
     // console.log("CONFIDENCE: " + conf);
 
-    words = sentence.split(' ');
-    console.log(words)
-    let maxCount = 0, maxLabel = 0, count=Array.apply(null, Array(5)).map(function (x,i) {return 0});
-    for(let i = 0; i < labels.length; i++){
-      for(let j = 0; j < words.length; j++){
-        if((labels[i].toLowerCase().includes(words[j].toLowerCase()) )|| words[j].toLowerCase().includes(labels[i])){
-          count[i] += 1;
+    if (sentence.toLowerCase().includes("new folder")) {
+      console.log("making new folder")
+      words = sentence.splot(' ');
+      for (let i = 1; i < words.length; i++) {
+        if (words[i] == 'folder' && words[i - 1] == 'new') {
+          newfolder = true;
+          newfolderName = words[i + 1] + (i + 2 < words.length) ? words[i + 2] : "" + (i + 3 < words.length) ? words[i + 3] : "";
         }
       }
-      if(count[i] >= maxCount){
-        maxLabel = i;
-        maxCount = count[i];
+    } else {
+      words = sentence.split(' ');
+      let count = Array.apply(null, Array(5)).map(function (x, i) { return 0 });
+      for (let i = 0; i < labels.length; i++) {
+        for (let j = 0; j < words.length; j++) {
+          if ((labels[i].toLowerCase().includes(words[j].toLowerCase()) || words[j].toLowerCase().includes(labels[i])) && Math.abs(words[j].length - labels[i].length) <= 1) {
+            count[i] += 1;
+          }
+        }
+        if (count[i] >= maxCount) {
+          maxLabel = i;
+          maxCount = count[i];
+        }
+        console.log(labels[i] + " : " + count[i]);
       }
-      console.log(labels[i] + " : " + count[i]);
     }
 
-    count.sort();
-    const secondary_confidence = parseFloat(count[count.length - 1] - count[count.length - 2]) / count[count.length - 1];
-    const AGGREGATE_CONFIDENCE = conf * secondary_confidence;
+    console.log(maxLabel)
 
+    className = labels[maxLabel];
     console.log("THIS BELONGS TO", labels[maxLabel])
-    console.log("AGGREGATE CONFIDENCE:", AGGREGATE_CONFIDENCE)
+    console.log("CONFIDENCE", conf)
+    console.log("NEW FOLDER?", newfolder);
+    doneRec = true;
   }).catch(err => {
     console.log("error: ", err)
   })
 
+  return;
 }
+
+app.get('/file', (req, res) => {
+  file_name = "middle_sentence.mp3";
+
+  const recognizeParams = {
+    audio: fs.createReadStream(file_name),
+    contentType: 'audio/mp3',
+    wordAlternativesThreshold: 0.9,
+  };
+
+  speechToText.recognize(recognizeParams).then(og => {
+    // console.log(JSON.stringify(og, null, 2));
+    result = og["result"];
+
+    // console.log(JSON.stringify(res, null, 2));
+
+    sentence = result["results"][0]["alternatives"][0]["transcript"];
+    conf = result["results"][0]["alternatives"][0]["confidence"];
+
+    // console.log("SENTENCE: " + sentence);
+    // console.log("CONFIDENCE: " + conf);
+
+    if (sentence.toLowerCase().includes("new folder")) {
+      console.log("making new folder")
+      words = sentence.splot(' ');
+      for (let i = 1; i < words.length; i++) {
+        if (words[i] == 'folder' && words[i - 1] == 'new') {
+          newfolder = true;
+          newfolderName = words[i + 1] + (i + 2 < words.length) ? words[i + 2] : "" + (i + 3 < words.length) ? words[i + 3] : "";
+        }
+      }
+    } else {
+      words = sentence.split(' ');
+      let count = Array.apply(null, Array(5)).map(function (x, i) { return 0 });
+      for (let i = 0; i < labels.length; i++) {
+        for (let j = 0; j < words.length; j++) {
+          if ((labels[i].toLowerCase().includes(words[j].toLowerCase()) || words[j].toLowerCase().includes(labels[i])) && Math.abs(words[j].length - labels[i].length) <= 1) {
+            count[i] += 1;
+          }
+        }
+        if (count[i] >= maxCount) {
+          maxLabel = i;
+          maxCount = count[i];
+        }
+        console.log(labels[i] + " : " + count[i]);
+      }
+    }
+
+    console.log(maxLabel)
+
+    className = labels[maxLabel];
+    res.send({
+      'new-folder': newfolder,
+      'new-folder-name': newfolderName,
+      'classified': className,
+    })
+    console.log("THIS BELONGS TO", labels[maxLabel])
+    console.log("CONFIDENCE", conf)
+    console.log("NEW FOLDER?", newfolder);
+  }).catch(err => {
+    console.log("error: ", err)
+  })
+})
 
 app.post('/', (req, res) => {
   console.log(req.body)
   res.sendStatus(200)
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })
 
 quickstart();
