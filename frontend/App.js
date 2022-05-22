@@ -86,12 +86,6 @@ const App = () => {
 
   let content;
 
-  // if (page === "Home") {
-  //   content = <Button></Button>;
-  // } else if (page === "Thoughts") {
-  //   content = <Thoughts></Thoughts>;
-  // }
-
   return (
     // <NavigationContainer>
     //   <Stack.Navigator>
