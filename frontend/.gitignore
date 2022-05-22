@@ -1,16 +1,7 @@
+service_account.json
 node_modules/
 .expo/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-config.json
-service_account.json
+.expo-shared
 
 # macOS
 .DS_Store
