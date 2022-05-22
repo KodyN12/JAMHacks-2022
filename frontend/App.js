@@ -2,9 +2,13 @@
 // https://aboutreact.com/speech-to-text-conversion-in-react-native-voice-recognition/
 
 // import React in our code
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { Audio, Video } from 'expo-av';
+import { Audio, Video } from "expo-av";
+import PageSwitcher from "./components/PageSwitcher";
+
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // import all the components we are going to use
 import {
@@ -19,14 +23,19 @@ import {
   Button,
   Platform,
 } from 'react-native';
+import Header from "./components/Header";
+
 
 const { Storage } = require('@google-cloud/storage');
 const storage = new Storage();
 
 
+// const Stack = createNativeStackNavigator();
+
 const App = () => {
   const [recording, setRecording] = useState();
   const [isRecording, setIsRecording] = useState();
+  const [currPage, setCurrPage] = useState("home");
 
   useEffect(async () => {
     //Setting callbacks for the process status
@@ -62,7 +71,7 @@ const App = () => {
       setRecording(undefined);
       await recording.stopAndUnloadAsync();
       const uri = recording.getURI();
-      console.log('Recording stopped and stored at', uri);
+      console.log("Recording stopped and stored at", uri);
 
       await player.loadAsync({ uri: uri }, {}, true);
       await player.playAsync();
@@ -78,7 +87,7 @@ const App = () => {
 
     } else {
       setIsRecording(true);
-      console.log('Starting recording..');
+      console.log("Starting recording..");
       const { recording } = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
@@ -95,35 +104,16 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <Text style={styles.bigTitle} top={100}><i>Speech<br></br>Note</i></Text>
-        {/* <Button title="Start" onPress={startRecording} style={styles.microphoneButton}></Button>
-        <Button title="Stop" onPress={stopRecording} color="#bbbbbb"></Button> */}
-
-        <TouchableHighlight
-          style={{
-            borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-            width: Dimensions.get('window').width * 0.65,
-            height: Dimensions.get('window').width * 0.65,
-            backgroundColor: '#879CD3',
-            justifyContent: 'center',
-            alignItems: 'center',
-            top: Dimensions.get('window').height * 0.3
-          }}
-          underlayColor='#ccc'
-          onPress={() => manageRecording()}
-        >
-          {/* <Text>sdfsdf</Text> */}
-          <Image
-            style={styles.microphoneIcon}
-            source={
-              require('./microphone.png')
-            }
-          />
-        </TouchableHighlight>
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    <SafeAreaView>
+      <View style={styles.container2}>
+        <Header setPage={setCurrPage}></Header>
       </View>
+      <PageSwitcher page={currPage} setPage={setCurrPage} />
     </SafeAreaView>
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 };
 
@@ -134,54 +124,65 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontFamily: "Inter",
     textAlign: "center",
-  }
-  ,
+  },
   microphoneIcon: {
     width: 70,
     height: 70,
   },
   container: {
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 5,
+  },
+  container1: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "top",
+    justifyContent: "space-between",
+    padding: 50,
+  },
+  container2: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: "column",
+    alignItems: "center",
     padding: 5,
   },
   headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingVertical: 10,
   },
   titleText: {
     fontSize: 22,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   buttonStyle: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 15,
     padding: 10,
-    backgroundColor: '#eb4034',
+    backgroundColor: "#eb4034",
     marginRight: 2,
     marginLeft: 2,
   },
   buttonTextStyle: {
-    color: '#cccccc',
-    textAlign: 'center',
-    width: 50
+    color: "#cccccc",
+    textAlign: "center",
+    width: 50,
   },
   microphoneButton: {
-    color: '#bbbbbb',
-    textAlign: 'left',
-    width: 100
+    color: "#bbbbbb",
+    textAlign: "left",
+    width: 100,
   },
   horizontalView: {
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     bottom: 0,
   },
   textStyle: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: 12,
   },
   imageButton: {
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
   },
   textWithSpaceStyle: {
     flex: 1,
-    textAlign: 'center',
-    color: '#B0171F',
+    textAlign: "center",
+    color: "#B0171F",
   },
 });
