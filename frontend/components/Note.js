@@ -24,7 +24,7 @@ const Note = (props) => {
     <View style={styles.container1}>
       <Text style={{color: "#fff"}}>{props.currFolder}</Text>
       {entries.map((entry, idx) => {
-        return <Text>{entry}</Text>;
+        return <Text style={{color: "#fff"}}>{entry}</Text>;
       })}
     </View>
   );
