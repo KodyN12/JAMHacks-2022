@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "top",
-    justifyContent: "space-between",
+    justifyContent: "center",
     padding: 50,
   },
 });

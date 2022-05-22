@@ -15,12 +15,8 @@ import {
 const Folder = (props) => {
   return (
     <View style={styles.rectangle}>
-      <Text
-        style={{
-          color: "#FFFFFF",
-        }}
-      >
-        HII
+      <Text style={{ fontSize: 25 }}>
+        <b>Folder</b>
       </Text>
     </View>
   );
@@ -30,10 +26,10 @@ export default Folder;
 
 const styles = StyleSheet.create({
   rectangle: {
-    width: "100px",
+    borderRadius: 20,
+    width: "150px",
     height: "200px",
-    backgroundColor: "#000000",
-    flexDirection: "row",
+    backgroundColor: "#EAE172",
     justifyContent: "center",
     alignItems: "center",
   },
