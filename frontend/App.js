@@ -4,7 +4,7 @@
 // import React in our code
 import React, { useState, useEffect } from 'react';
 
-import {Audio, Video} from 'expo-av';
+import { Audio, Video } from 'expo-av';
 
 // import all the components we are going to use
 import {
@@ -17,31 +17,42 @@ import {
   TouchableHighlight,
   ScrollView,
   Button,
+  Platform,
 } from 'react-native';
- 
- 
+
+const { Storage } = require('@google-cloud/storage');
+const storage = new Storage();
+
+
 const App = () => {
   const [recording, setRecording] = useState();
   const [isRecording, setIsRecording] = useState();
- 
-  useEffect(async() => {
+
+  useEffect(async () => {
     //Setting callbacks for the process status
     const permission = await Audio.requestPermissionsAsync();
 
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: true,
       playsInSilentModeIOS: true,
-    }); 
-    
+    });
 
-    fetch("http://localhost:3000/")
-    .then(res => res.json())
-    .then(data => console.log(data))
-    // await fetch("http://localhost:3000/", options).then(data => console.log(data))
+    await storage.createBucket("audiodump");
     
- 
-    return () => {};
+    fetch("http://localhost:3000/")
+      .then(res => res.json())
+      .then(data => console.log(data))
+    // await fetch("http://localhost:3000/", options).then(data => console.log(data))
+
+
+    return () => { };
   }, []);
+
+  // async function createBucket() {
+  //   // Creates the new bucket
+  //   console.log(`Bucket created.`);
+  //   await storage.createBucket("audiodump");
+  // }
 
   async function manageRecording() {
     if (isRecording) {
@@ -53,16 +64,18 @@ const App = () => {
       const uri = recording.getURI();
       console.log('Recording stopped and stored at', uri);
 
-      await player.loadAsync({ uri: uri });
+      await player.loadAsync({ uri: uri }, {}, true);
       await player.playAsync();
+
+      // uploadFile(recording);
 
       fetch("http://localhost:3000/", {
         method: 'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({uri : uri})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: `$gs://audiodump/audioToRec` })
       })
-      .then(res => res.text())
-      
+        .then(res => res.text())
+
     } else {
       setIsRecording(true);
       console.log('Starting recording..');
@@ -71,6 +84,14 @@ const App = () => {
       );
       setRecording(recording);
     }
+  }
+
+  async function uploadFile(filePath) {
+    await storage.bucket("audiodump").upload(filePath, {
+      destination: "audioToRec",
+    });
+
+    console.log(`${filePath} uploaded to audiodump`);
   }
 
   return (
