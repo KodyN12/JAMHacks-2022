@@ -88,10 +88,14 @@ const App = () => {
     // <NavigationContainer>
     //   <Stack.Navigator>
     <SafeAreaView>
-      <View style={styles.container2}>
-        <Header setPage={setCurrPage}></Header>
+      <View style={{backgroundColor : "black", height:"100vh"}}>
+        <View style={styles.container2}>
+          <Header setPage={setCurrPage}></Header>
+        </View>
+        <View>
+          <PageSwitcher page={currPage} setPage={setCurrPage} manageRecording={manageRecording} recording={isRecording}/>
+        </View>
       </View>
-      <PageSwitcher page={currPage} setPage={setCurrPage} />
     </SafeAreaView>
     //   </Stack.Navigator>
     // </NavigationContainer>
@@ -105,74 +109,5 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontFamily: "Inter",
     textAlign: "center",
-  },
-  microphoneIcon: {
-    width: 70,
-    height: 70,
-  },
-  container: {
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 5,
-  },
-  container1: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "top",
-    justifyContent: "space-between",
-    padding: 50,
-  },
-  container2: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 5,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-  },
-  titleText: {
-    fontSize: 22,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  buttonStyle: {
-    flex: 1,
-    justifyContent: "center",
-    marginTop: 15,
-    padding: 10,
-    backgroundColor: "#eb4034",
-    marginRight: 2,
-    marginLeft: 2,
-  },
-  buttonTextStyle: {
-    color: "#cccccc",
-    textAlign: "center",
-    width: 50,
-  },
-  microphoneButton: {
-    color: "#bbbbbb",
-    textAlign: "left",
-    width: 100,
-  },
-  horizontalView: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-  },
-  textStyle: {
-    textAlign: "center",
-    padding: 12,
-  },
-  imageButton: {
-    width: 50,
-    height: 50,
-  },
-  textWithSpaceStyle: {
-    flex: 1,
-    textAlign: "center",
-    color: "#B0171F",
   },
 });

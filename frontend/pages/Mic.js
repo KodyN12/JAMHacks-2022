@@ -11,30 +11,20 @@ import {
 } from "react-native";
 import App from "../App";
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+
+
 const Mic = (props) => {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
+
   return (
     <View style={styles.container1}>
-      <TouchableHighlight
-        style={{
-          borderRadius:
-            Math.round(
-              Dimensions.get("window").width + Dimensions.get("window").height
-            ) / 2,
-          width: Dimensions.get("window").width * 0.45,
-          height: Dimensions.get("window").width * 0.45,
-          backgroundColor: "#879CD3",
-          justifyContent: "center",
-          alignItems: "center",
-          top: Dimensions.get("window").height * 0.1,
-        }}
-        underlayColor="#ccc"
-        onPress={() => App.manageRecording()}
-      >
-        <Image
-          style={styles.microphoneIcon}
-          source={require("../assets/microphone.png")}
-        />
-      </TouchableHighlight>
+          <Text style={styles.bigTitle}>CREATE</Text>
+          <Icon name="microphone" size={40} color="#fff" onPress={() => props.manageRecording()}/>
+          <Text style={{color: "#fff", paddingTop: "10px"}}>{props.recording ? "Stop Recording" : "Start Recording"}</Text>
     </View>
   );
 };
@@ -42,14 +32,21 @@ const Mic = (props) => {
 export default Mic;
 
 const styles = StyleSheet.create({
+  bigTitle: {
+    fontSize: 50,
+    fontFamily: 'Inter_900Black',
+    textAlign: "center",
+    color: "#fff",
+    paddingBottom: "30px"
+  },
   microphoneIcon: {
     width: 100,
     height: 100,
   },
   container1: {
     width: "100%",
-    flexDirection: "row",
-    alignItems: "top",
+    flexDirection: "column",
+    alignItems: "center",
     justifyContent: "center",
     padding: 50,
   },

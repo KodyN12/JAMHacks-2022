@@ -8,7 +8,7 @@ function PageSwitcher(props) {
 
   switch (props.page) {
     case "home":
-      return <Mic setPage={props.setPage} />;
+      return <Mic setPage={props.setPage} manageRecording={props.manageRecording} recording={props.recording}/>;
     case "thoughts":
       return <Thoughts setPage={props.setPage} setCurrFolder={setCurrFolder} />;
     case "note":

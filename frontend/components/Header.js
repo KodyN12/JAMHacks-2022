@@ -16,35 +16,21 @@ import {
   Button,
 } from "react-native";
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+
+
 // function Header() {
 const Header = (props) => {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
+
   return (
     <View style={styles.container1}>
-      <TouchableHighlight
-        style={styles.fitbox}
-        underlayColor="#ccc"
-        onPress={() => props.setPage("home")}
-      >
-        <Image
-          style={styles.buttonIcon}
-          source={require("../assets/home-vector.png")}
-        />
-      </TouchableHighlight>
-      <Text style={styles.bigTitle} top={100}>
-        <i>
-          <b>Speechnote</b>
-        </i>
-      </Text>
-      <TouchableHighlight
-        style={styles.fitbox}
-        underlayColor="#ccc"
-        onPress={() => props.setPage("thoughts")}
-      >
-        <Image
-          style={styles.buttonIcon}
-          source={require("../assets/menu-vector.png")}
-        />
-      </TouchableHighlight>
+      <Icon name="home" size={25} color="#fff" onPress={() => props.setPage("home")}/>
+      <Text style={styles.bigTitle}>Telenote</Text>
+      <Icon name="navicon" size={20} color="#fff" onPress={() => props.setPage("thoughts")}/>
     </View>
   );
 };
@@ -54,9 +40,11 @@ export default Header;
 const styles = StyleSheet.create({
   bigTitle: {
     fontSize: 60,
-    fontFamily: "Inter",
+    fontFamily: 'Inter_900Black',
+    fontWeight: 'regular',
     textAlign: "center",
     alignItems: "center",
+    color: "#fff"
   },
   buttonIcon: {
     resizeMode: "contain",
@@ -71,10 +59,8 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   fitbox: {
-    borderRadius: 20,
     width: Dimensions.get("window").width * 0.09,
     height: Dimensions.get("window").width * 0.09,
-    backgroundColor: "#879CD3",
     justifyContent: "center",
     alignItems: "center",
     top: Dimensions.get("window").height * 0.0,

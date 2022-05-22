@@ -31,7 +31,7 @@ const Folder = (props) => {
           props.setCurrFolder(props.text);
         }}
       >
-        <Text style={{ fontSize: 25, color: props.color }}>{props.text}</Text>
+        <Text style={{ fontSize: 25, color: '#fff' }}>{props.text}</Text>
       </TouchableHighlight>
     </View>
     // <View
@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   fitbox: {
-    borderRadius: 20,
-    width: Dimensions.get("window").width * 0.1,
-    height: Dimensions.get("window").width * 0.1,
+    borderRadius: 3,
+    width: "150px",
+    height: "150px",
     backgroundColor: "#879CD3",
     justifyContent: "center",
     alignItems: "center",

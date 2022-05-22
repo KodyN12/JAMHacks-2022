@@ -8,7 +8,18 @@ export default function Thoughts(props) {
   const [folders, setFolders] = React.useState(allData);
 
   return (
-    <FlatGrid
+    <View>
+      <Text style={{color: '#fff', fontSize: '20px', paddingLeft: '30px'}}>Folders</Text>
+      <View
+        style={{
+          borderBottomColor: '#fff',
+          borderBottomWidth: 2,
+          width: "95%",
+          marginLeft: "30px",
+          paddingTop: "10px"
+        }}
+      />
+      <FlatGrid
       itemDimension={100}
       data={folders}
       style={styles.gridView}
@@ -29,13 +40,20 @@ export default function Thoughts(props) {
         </View>
       )}
     />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   gridView: {
-    marginTop: 40,
     flex: 1,
+  },
+  container1: {
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 30,
   },
   itemContainer: {
     justifyContent: "flex-end",
