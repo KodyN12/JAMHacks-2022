@@ -62,7 +62,7 @@ const App = () => {
       await player.loadAsync({ uri: uri });
       await player.playAsync();
 
-      fetch("http://localhost:3000/", {
+      fetch("http://localhost:3000/file", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uri: uri }),

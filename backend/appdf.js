@@ -3,7 +3,7 @@ const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
 const fs = require('fs');
 const cors = require('cors')
-const download = require("downloadjs");
+// const download = require("downloadjs");
 
 const app = express()
 const port = 3000
@@ -48,10 +48,10 @@ app.get('/file', (req, res) => {
   uri = req.body.uri;
   console.log(uri);
 
-  download(uri, "currentAudio.webm", "audio/webm");
+  // download(uri, "currentAudio.webm", "audio/webm");
 
   const recognizeParams = {
-    audio: fs.createReadStream("currentAudio.webm"),
+    audio: fs.createReadStream("demo.mp3"),
     contentType: 'audio/mp3',
     wordAlternativesThreshold: 0.9,
   };
@@ -116,7 +116,7 @@ app.post('/', (req, res) => {
   uri = req.body.uri;
   console.log(uri);
 
-  download(uri, "currentAudio.webm", "audio/webm");
+  // download(uri, "currentAudio.webm", "audio/webm");
 
   const recognizeParams = {
     audio: fs.createReadStream(uri),
