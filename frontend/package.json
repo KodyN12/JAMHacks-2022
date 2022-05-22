@@ -13,12 +13,8 @@
     "@expo-google-fonts/inter": "^0.2.2",
     "@expo/webpack-config": "~0.16.2",
     "@google-cloud/speech": "^4.10.2",
-<<<<<<< HEAD
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
-=======
-    "cors-anywhere": "^0.4.4",
->>>>>>> 9792c867798a853e407c66c4df3ab4587574f0e2
     "expo": "~45.0.0",
     "expo-av": "~11.2.3",
     "expo-font": "~10.1.0",
