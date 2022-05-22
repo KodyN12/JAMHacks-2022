@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React from "react";
+import { StyleSheet, View} from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import Folder from "../components/Folder";
 import { allData } from "../state/allData";

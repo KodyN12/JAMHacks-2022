@@ -48,6 +48,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: 50,
+    padding: 120,
+  },
+  italFont: {
+    fontSize: Dimensions.get("window").width * 0.08,
+    fontFamily: "Inter",
+    textAlign: "center",
+    alignItems: "center",
+    flexWrap: "nowrap",
+    padding: 120,
   },
 });
