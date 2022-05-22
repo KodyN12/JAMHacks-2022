@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Audio, Video } from "expo-av";
+import { allData } from "./state/allData";
 import PageSwitcher from "./components/PageSwitcher";
 
 // import { NavigationContainer } from "@react-navigation/native";
@@ -61,14 +62,21 @@ const App = () => {
       await player.loadAsync({ uri: uri });
       await player.playAsync();
 
-      // fetch("http://localhost:3000/", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ uri: uri }),
-      // }).then((res) => res.text());
+      fetch("http://localhost:3000/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uri: uri }),
+      }).then((res) => { res.json() 
+      let folderName = "programming"
+      let text = "random text"
+      for(let i = 0; i < allData.length; i++){
+        console.log(allData[i].id);
+        if(folderName === allData[i].id)  allData[i].entries.push(text);
+      }});
+
     } else {
       setIsRecording(true);
-      console.log("Starting recording..");
+      console.log("Starting recording...");
       const { recording } = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
