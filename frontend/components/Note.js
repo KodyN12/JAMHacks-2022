@@ -22,9 +22,17 @@ const Note = (props) => {
   }
   return (
     <View style={styles.container1}>
-      <Text style={{color: "#fff"}}>{props.currFolder}</Text>
+      <Text style={{color: '#fff', fontSize: '20px'}}>Folder: {props.currFolder}</Text>
+      <View
+        style={{
+          borderBottomColor: '#fff',
+          borderBottomWidth: 2,
+          width: "95%",
+          paddingTop: "10px"
+        }}
+      />
       {entries.map((entry, idx) => {
-        return <Text style={{color: "#fff"}}>{entry}</Text>;
+        return <Text style={{color: "#fff", paddingTop: "10px"}}>{entry}</Text>;
       })}
     </View>
   );
@@ -43,5 +51,6 @@ const styles = StyleSheet.create({
     alignItems: "top",
     justifyContent: "center",
     padding: 50,
+    paddingLeft: "30px"
   },
 });
