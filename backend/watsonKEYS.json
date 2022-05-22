@@ -1,0 +1,8 @@
+{
+    "apikey": "JCyr_vJ37RNHAMdkK9H75cJlTvdM56rXTPXXXOUXkQeQ",
+    "iam_apikey_description": "Auto-generated for key crn:v1:bluemix:public:speech-to-text:us-east:a/efad011399f04476ac859b538c3e56a4:ad2184d8-f108-4354-9807-efa5e3a947e3:resource-key:074456ab-fdf2-4f5c-b6a5-85dec4e49525",
+    "iam_apikey_name": "KING1",
+    "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+    "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/efad011399f04476ac859b538c3e56a4::serviceid:ServiceId-eeabbc67-408f-4701-bd48-c51dc4acaaa0",
+    "url": "https://api.us-east.speech-to-text.watson.cloud.ibm.com/instances/ad2184d8-f108-4354-9807-efa5e3a947e3"
+}
