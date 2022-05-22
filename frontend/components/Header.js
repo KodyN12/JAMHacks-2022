@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { NavigationContainer, useLinkProps } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 
-const Stack = createNativeStackNavigator();
-//genomics
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   Image,
   Dimensions,
   TouchableHighlight,
-  ScrollView,
-  Button,
 } from "react-native";
 
-// function Header() {
 const Header = (props) => {
   return (
     <View style={styles.container1}>
@@ -53,7 +45,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   bigTitle: {
-    fontSize: 60,
+    fontSize: Dimensions.get("window").width * 0.1,
     fontFamily: "Inter",
     textAlign: "center",
     alignItems: "center",
@@ -72,8 +64,8 @@ const styles = StyleSheet.create({
   },
   fitbox: {
     borderRadius: 20,
-    width: Dimensions.get("window").width * 0.09,
-    height: Dimensions.get("window").width * 0.09,
+    width: Dimensions.get("window").width * 0.12,
+    height: Dimensions.get("window").width * 0.12,
     backgroundColor: "#879CD3",
     justifyContent: "center",
     alignItems: "center",

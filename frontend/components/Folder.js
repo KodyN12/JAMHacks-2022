@@ -1,25 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { NavigationContainer, useLinkProps } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Stack = createNativeStackNavigator();
-//genomics
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
-  Image,
   Dimensions,
   TouchableHighlight,
-  ScrollView,
-  Button,
 } from "react-native";
 
-// const [rectColor, setRectColor] = useState();
-
 const Folder = (props) => {
-  // setRectColor(props.backgroundColor);
   return (
     <View style={StyleSheet.container1}>
       <TouchableHighlight
@@ -63,8 +52,8 @@ const styles = StyleSheet.create({
   },
   fitbox: {
     borderRadius: 20,
-    width: Dimensions.get("window").width * 0.1,
-    height: Dimensions.get("window").width * 0.1,
+    width: Dimensions.get("window").width * 0.15,
+    height: Dimensions.get("window").width * 0.15,
     backgroundColor: "#879CD3",
     justifyContent: "center",
     alignItems: "center",

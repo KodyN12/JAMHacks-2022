@@ -20,8 +20,8 @@ const Mic = (props) => {
             Math.round(
               Dimensions.get("window").width + Dimensions.get("window").height
             ) / 2,
-          width: Dimensions.get("window").width * 0.45,
-          height: Dimensions.get("window").width * 0.45,
+          width: Dimensions.get("window").width * 0.75,
+          height: Dimensions.get("window").width * 0.75,
           backgroundColor: "#879CD3",
           justifyContent: "center",
           alignItems: "center",
@@ -35,6 +35,9 @@ const Mic = (props) => {
           source={require("../assets/microphone.png")}
         />
       </TouchableHighlight>
+      {/* <Text style={styles.italFont}><i>Save Ideas{"\n"}
+      Sort Your Thoughts{"\n"}
+      Plan Your Future</i></Text> */}
     </View>
   );
 };
@@ -48,9 +51,17 @@ const styles = StyleSheet.create({
   },
   container1: {
     width: "100%",
-    flexDirection: "row",
-    alignItems: "top",
+    flexDirection: "column",
+    alignItems: "center",
     justifyContent: "center",
-    padding: 50,
+    padding: 120,
+  },
+  italFont: {
+    fontSize: Dimensions.get("window").width * 0.08,
+    fontFamily: "Inter",
+    textAlign: "center",
+    alignItems: "center",
+    flexWrap: "nowrap",
+    padding: 120,
   },
 });
