@@ -20,19 +20,19 @@ const Mic = (props) => {
             Math.round(
               Dimensions.get("window").width + Dimensions.get("window").height
             ) / 2,
-          width: Dimensions.get("window").width * 0.65,
-          height: Dimensions.get("window").width * 0.65,
+          width: Dimensions.get("window").width * 0.45,
+          height: Dimensions.get("window").width * 0.45,
           backgroundColor: "#879CD3",
           justifyContent: "center",
           alignItems: "center",
-          top: Dimensions.get("window").height * 0.3,
+          top: Dimensions.get("window").height * 0.1,
         }}
         underlayColor="#ccc"
         onPress={() => App.manageRecording()}
       >
         <Image
           style={styles.microphoneIcon}
-          source={require("../microphone.png")}
+          source={require("../assets/microphone.png")}
         />
       </TouchableHighlight>
     </View>
@@ -43,8 +43,8 @@ export default Mic;
 
 const styles = StyleSheet.create({
   microphoneIcon: {
-    width: 70,
-    height: 70,
+    width: 100,
+    height: 100,
   },
   container1: {
     width: "100%",

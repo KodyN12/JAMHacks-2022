@@ -28,16 +28,24 @@ export default function Example() {
   // ]);
 
   const [folders, setFolders] = React.useState([
-    { backgroundColor: "#A0F912", color: "red", text: "Ideas" },
-    { backgroundColor: "#B0F913", color: "green", text: "Ideas2" },
-    { backgroundColor: "#C0F914", color: "blue", text: "Ideas3" },
-    { backgroundColor: "#D0F915", color: "orange", text: "Ideas4" },
-    { backgroundColor: "#E0F916", color: "violet", text: "Ideas5" },
-    { backgroundColor: "#F0F917", color: "yellow", text: "Ideas6" },
-    { backgroundColor: "#G0F918", color: "purple", text: "Ideas7" },
-    { backgroundColor: "#H0F919", color: "azure", text: "Ideas8" },
-    { backgroundColor: "#I0F910", color: "beige", text: "Ideas9" },
-    { backgroundColor: "#J0F911", color: "black", text: "Ideas0" },
+    { backgroundColor: "#42CAFD", color: "black", text: "Music" },
+    { backgroundColor: "#66B3BA", color: "black", text: "Programming" },
+    { backgroundColor: "#8EB19D", color: "black", text: "Physics" },
+    { backgroundColor: "#F6EFA6", color: "black", text: "Movies" },
+    { backgroundColor: "#F0D2D1", color: "black", text: "Chores" },
+    { backgroundColor: "#42CAFD", color: "black", text: "To-Do" },
+    { backgroundColor: "#66B3BA", color: "black", text: "Business Club" },
+    { backgroundColor: "#8EB19D", color: "black", text: "Drink Concoctions" },
+    { backgroundColor: "#F6EFA6", color: "black", text: "Life" },
+    { backgroundColor: "#F0D2D1", color: "black", text: "Ideas" },
+    { backgroundColor: "#42CAFD", color: "black", text: "Etc." },
+    { backgroundColor: "#66B3BA", color: "black", text: "Etc." },
+    { backgroundColor: "#8EB19D", color: "black", text: "Etc." },
+    { backgroundColor: "#F6EFA6", color: "black", text: "Etc." },
+    { backgroundColor: "#F0D2D1", color: "black", text: "Etc." },
+    { backgroundColor: "#42CAFD", color: "black", text: "Etc." },
+    { backgroundColor: "#66B3BA", color: "black", text: "Etc." },
+    { backgroundColor: "#8EB19D", color: "black", text: "Etc." },
   ]);
 
   return (
@@ -47,7 +55,7 @@ export default function Example() {
       style={styles.gridView}
       // staticDimension={300}
       // fixed
-      spacing={10}
+      spacing={50}
       renderItem={({ item }) => (
         <View style={styles.itemContainer}>
           {/* <Text style={styles.itemName}>{item.name}</Text> */}
@@ -65,14 +73,14 @@ export default function Example() {
 
 const styles = StyleSheet.create({
   gridView: {
-    marginTop: 10,
+    marginTop: 40,
     flex: 1,
   },
   itemContainer: {
     justifyContent: "flex-end",
     borderRadius: 5,
-    padding: 50,
-    height: 20,
+    padding: 20,
+    height: 170,
   },
   itemName: {
     fontSize: 16,

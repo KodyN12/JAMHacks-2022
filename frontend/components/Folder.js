@@ -22,6 +22,8 @@ const Folder = (props) => {
         borderRadius: 20,
         width: "150px",
         height: "200px",
+        // width: Dimensions.get("window").width * 0.1,
+        // height: Dimensions.get("window").height * 0.1,
         backgroundColor: props.backgroundColor,
         justifyContent: "center",
         alignItems: "center",
