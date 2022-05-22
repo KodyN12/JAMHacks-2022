@@ -38,8 +38,15 @@ const App = () => {
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: true,
       playsInSilentModeIOS: true,
-    });
+    }); 
+    
 
+    fetch("http://localhost:3000/")
+    .then(res => res.json())
+    .then(data => console.log(data))
+    // await fetch("http://localhost:3000/", options).then(data => console.log(data))
+    
+ 
     return () => {};
   }, []);
 
@@ -55,6 +62,14 @@ const App = () => {
 
       await player.loadAsync({ uri: uri });
       await player.playAsync();
+
+      fetch("http://localhost:3000/", {
+        method: 'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({uri : uri})
+      })
+      .then(res => res.text())
+      
     } else {
       setIsRecording(true);
       console.log("Starting recording..");
