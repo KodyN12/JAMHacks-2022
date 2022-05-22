@@ -16,9 +16,14 @@
 <<<<<<< HEAD
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
+<<<<<<< HEAD
 =======
     "cors-anywhere": "^0.4.4",
 >>>>>>> 9792c867798a853e407c66c4df3ab4587574f0e2
+=======
+    "@rneui/base": "^4.0.0-rc.4",
+    "@rneui/themed": "^4.0.0-rc.4",
+>>>>>>> frontend
     "expo": "~45.0.0",
     "expo-av": "~11.2.3",
     "expo-font": "~10.1.0",
@@ -29,6 +34,8 @@
     "react-native": "0.68.2",
     "react-native-safe-area-context": "4.2.4",
     "react-native-screens": "~3.11.1",
+    "react-native-super-grid": "^4.4.0",
+    "react-native-vector-icons": "^9.1.0",
     "react-native-voice": "^0.3.0",
     "react-native-web": "0.17.7",
     "webpack-dev-server": "~3.11.0"
