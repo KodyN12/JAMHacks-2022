@@ -12,6 +12,7 @@ web-build/
 config.json
 service-account.json
 watsonKEYS.json
+service-account.json
 
 # macOS
 .DS_Store
