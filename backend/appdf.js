@@ -44,7 +44,7 @@ async function quickstart() {
 
 }
 
-app.get('/file', (req, res) => {
+app.post('/file', (req, res) => {
   uri = req.body.uri;
   console.log(uri);
 
@@ -100,9 +100,10 @@ app.get('/file', (req, res) => {
 
     className = labels[maxLabel];
     res.send({
-      'new-folder': newfolder,
-      'new-folder-name': newfolderName,
+      'new_folder': newfolder,
+      'new_folder_name': newfolderName,
       'classified': className,
+      'text' : sentence
     })
     console.log("THIS BELONGS TO", labels[maxLabel])
     console.log("CONFIDENCE", conf)

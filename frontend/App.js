@@ -66,13 +66,15 @@ const App = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uri: uri }),
-      }).then((res) => { res.json() 
-      let folderName = "programming"
-      let text = "random text"
-      for(let i = 0; i < allData.length; i++){
-        console.log(allData[i].id);
-        if(folderName === allData[i].id)  allData[i].entries.push(text);
-      }});
+      }).then((res) =>  res.json())
+      .then(data => { console.log(data)
+        let text = data.text
+        let folder = data.classified
+        for(let i = 0; i < allData.length; i++){
+            if(folder === allData[i].id)  allData[i].entries.push(text);
+          }
+        }
+      );
 
     } else {
       setIsRecording(true);
